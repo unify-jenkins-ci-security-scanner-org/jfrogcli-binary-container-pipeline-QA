@@ -60,7 +60,7 @@ pipeline {
     always {
       archiveArtifacts artifacts: 'jfrog-sarif-results.sarif', fingerprint: true
       echo 'Cleaning up JFrog configuration...'
-      sh 'jf config remove cbjfrog-server-new --quiet'
+      sh './jf config remove cbjfrog-server-new --quiet'
     }
   }
 }
