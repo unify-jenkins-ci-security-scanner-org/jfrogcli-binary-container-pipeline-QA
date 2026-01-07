@@ -5,18 +5,17 @@ pipeline {
     JFROG_USERNAME = credentials('jfrog-cli-credentials')
     IMAGE_TAR = "${env.WORKSPACE}/image.tar"
     JFROG_SERVER = "https://cbjfrog.saas-preprod.beescloud.com"
-    JFROG_CLI_PATH = "${env.WORKSPACE}/jf-cli"
+    // JFROG_CLI_PATH = "${env.WORKSPACE}/jf-cli"
+    JFROG_VERSION = 2.78.8
   }
 
   stages {
     stage('Install JFrog CLI') {
       steps {
         sh '''
-          if [ ! -f "$WORKSPACE/jf-cli" ]; then
-              echo ":package: Downloading JFrog CLI to workspace..."
-              curl -fL https://releases.jfrog.io/artifactory/jfrog-cli/v2-jf/2.78.8/jfrog-cli-linux-amd64/jf -o jf
-              chmod +x jf
-          fi
+          echo ":package: Downloading JFrog CLI to workspace..."
+          curl -fL https://releases.jfrog.io/artifactory/jfrog-cli/v2-jf/${JFROG_VERSION}/jfrog-cli-linux-amd64/jf -o jf
+          chmod +x jf
           ./jf --version
         '''
       }
@@ -31,7 +30,7 @@ pipeline {
         )]) {
           sh '''
             echo ":key: Configuring JFrog CLI with provided credentials..."
-            ./jf config add cbjfrog-server-2 \
+            ./jf config add cbjfrog-server-new \
               --url=${JFROG_SERVER} \
               --user=$JF_USER \
               --password=$JF_PASS \
@@ -60,6 +59,8 @@ pipeline {
   post {
     always {
       archiveArtifacts artifacts: 'jfrog-sarif-results.sarif', fingerprint: true
+      echo 'Cleaning up JFrog configuration...'
+      sh 'jf config remove cbjfrog-server-new --quiet'
     }
   }
 }
