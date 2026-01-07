@@ -6,7 +6,7 @@ pipeline {
     IMAGE_TAR = "${env.WORKSPACE}/image.tar"
     JFROG_SERVER = "https://cbjfrog.saas-preprod.beescloud.com"
     // JFROG_CLI_PATH = "${env.WORKSPACE}/jf-cli"
-    JFROG_VERSION = 2.78.8
+    JFROG_VERSION = "2.78.8"
   }
 
   stages {
