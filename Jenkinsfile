@@ -12,11 +12,11 @@ pipeline {
     stage('Install JFrog CLI') {
       steps {
         sh '''
-          if [ ! -f "$WORKSPACE/jf-cli" ]; then
+          // if [ ! -f "$WORKSPACE/jf-cli" ]; then
               echo ":package: Downloading JFrog CLI to workspace..."
               curl -fL https://releases.jfrog.io/artifactory/jfrog-cli/v2-jf/2.78.8/jfrog-cli-linux-amd64/jf -o jf
               chmod +x jf
-          fi
+          // fi
           ./jf --version
         '''
       }
@@ -31,7 +31,7 @@ pipeline {
         )]) {
           sh '''
             echo ":key: Configuring JFrog CLI with provided credentials..."
-            ./jf config add cbjfrog-server \
+            ./jf config add cbjfrog-server-2 \
               --url=${JFROG_SERVER} \
               --user=$JF_USER \
               --password=$JF_PASS \
