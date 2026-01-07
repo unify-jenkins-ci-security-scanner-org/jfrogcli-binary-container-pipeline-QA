@@ -31,7 +31,7 @@ pipeline {
         )]) {
           sh '''
             echo ":key: Configuring JFrog CLI with provided credentials..."
-            ./jf config add cbjfrog-server-1 \
+            ./jf config add cbjfrog-server \
               --url=${JFROG_SERVER} \
               --user=$JF_USER \
               --password=$JF_PASS \
