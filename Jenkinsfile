@@ -5,14 +5,14 @@ pipeline {
     JFROG_USERNAME = credentials('jfrog-cli-credentials')
     IMAGE_TAR = "${env.WORKSPACE}/image.tar"
     JFROG_SERVER = "https://cbjfrog.saas-preprod.beescloud.com"
-    JFROG_CLI_PATH = "${env.WORKSPACE}/jf"
+    JFROG_CLI_PATH = "${env.WORKSPACE}/jf-cli"
   }
 
   stages {
     stage('Install JFrog CLI') {
       steps {
         sh '''
-          if [ ! -f "$WORKSPACE/jf" ]; then
+          if [ ! -f "$WORKSPACE/jf-cli" ]; then
               echo ":package: Downloading JFrog CLI to workspace..."
               curl -fL https://releases.jfrog.io/artifactory/jfrog-cli/v2-jf/2.78.8/jfrog-cli-linux-amd64/jf -o jf
               chmod +x jf
