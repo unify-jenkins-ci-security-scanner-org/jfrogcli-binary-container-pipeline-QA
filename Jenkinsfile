@@ -14,7 +14,7 @@ pipeline {
         sh '''
           if [ ! -f "$WORKSPACE/jf" ]; then
               echo ":package: Downloading JFrog CLI to workspace..."
-              curl -fL https://releases.jfrog.io/artifactory/jfrog-cli/v2-jf/latest/jfrog-cli-linux-amd64/jf -o jf
+              curl -fL https://releases.jfrog.io/artifactory/jfrog-cli/v2-jf/2.9.0/jfrog-cli-linux-amd64/jf -o jf
               chmod +x jf
           fi
           ./jf --version
