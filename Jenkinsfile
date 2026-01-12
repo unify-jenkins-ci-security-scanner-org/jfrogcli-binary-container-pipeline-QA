@@ -8,6 +8,10 @@ pipeline {
     // JFROG_CLI_PATH = "${env.WORKSPACE}/jf-cli"
     JFROG_VERSION = "2.78.8"
   }
+  
+  triggers {
+        cron '00 01 * * 1-5' // Runs at 01:00 on every day-of-week from Monday through Friday
+    }
 
   stages {
     stage('Install JFrog CLI') {
